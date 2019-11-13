@@ -1,0 +1,1 @@
+This is a simple implementation of webRTC with the use of simple-peer and other node.js packages
