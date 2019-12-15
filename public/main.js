@@ -1,13 +1,16 @@
 // Simple peer is build over WebRTC
 const Peer = require('simple-peer');
 // Use for socket connection
+// Here we have used the CDN link of the sockets.io
+// which is included in the html file
 const socket = io();
-
+// Getting the video element of the HTML page
 const video = document.querySelector('video');
 var client = {};
 
-// Get stream from the client
-navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+// Get stream from the client, it returns a Future
+navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    // 'then' is a future function that runs when the above part is executed correctly
     .then(stream => {
         // Sending the request to the server
         socket.emit('NewClient');
@@ -85,6 +88,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 
         // If more than 2 client's access the page
         socket.on('sessionActive', () => {
+          // Just a simple message for the users
             document.write('Session Active. Please come back later.');
         })
 
@@ -95,4 +99,5 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 
     })
     // Something went wrong
+    // This is another Future function, which runs if some error occurs
     .catch(err => document.write(err));
