@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const app = express();
 
@@ -6,6 +7,8 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/views"));
+app.set('view engine', 'pug');
 var clients = 0;
 
 io.on('connection', function (socket) {
@@ -43,4 +46,12 @@ function Disconnect() {
     }
 }
 
-http.listen(port, () => console.log('Running on port ' + port));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname+'/views/login.html'));
+});
+
+app.get('/video', function (req, res) {
+  res.sendFile(path.join(__dirname+'/views/video.html'));
+});
+
+http.listen(port, () => console.log('Running on port '));
