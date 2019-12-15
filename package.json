@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
+    "pug": "^2.0.4",
     "simple-peer": "^9.2.1",
     "socket.io": "^2.2.0"
   },
